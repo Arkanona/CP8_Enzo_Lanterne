@@ -38,3 +38,56 @@ C'est idéale pour les applications dynamiques (React, Next.js, Vue, etc.) :
 ## 5 Documenter la mise à jour et le retour arrière
 
 J'ai ajouter un fichier `test.js` j'ai ensuite push le projet, une fois cela fait j'ai fait un `instant rollback` sur Vercel et je suis revenu sur la version précédente.
+
+<!-- Corrigé -->
+## Déploiment Vercel
+
+Depuis la racine du projet :
+```
+vercel link
+> Create a new project
+> Name : Nommez le projet ou appuyer sur entrée
+> Connect this Git repository to automatically deploy changes on every push : Y
+> Code directory : Laisser par défaut
+> Customise settings : N
+```
+
+Cela crée un nouveau projet vide sur Vercel. 
+Vous devez configurer les variables d'environnement.
+Menu `Environnement variables` → `Add environnement variable`
+Choisir `Config`
+Ajouer les clés qui sont dans `.env.example`
+Configurer la variable d'environnement en fonction de l'environnement (production)
+ensuite déployer avec `vercel`, cela permet de déployer la version en production (premièere version)
+
+## Déployer la version de dev
+
+1. Créer une branche develop : `git checkout -b develop`
+2. Déployer avec `vercel`
+3. Configurer les variables d'environnement pour la version Preview
+4. Lancer un Redeploy sur la version Preview
+
+
+## Mise à jour 
+
+Pour publier une nouvelle version :
+
+1. Passer sur la branche develop : `git switch develop`
+2. Mettre à jour le projet
+3. Mettre à jour les test si le comportement change
+4. Lancer `npm run check` et `npm test`
+5. Créer un commit explicite
+6. Déployer la preview : `vercel`
+7. Vérifier les routes
+8. Publier en production
+
+### Publier en production
+
+Pour publier en production : 
+
+1. Fusionner la branche develop avec la branche main
+2. Lancer `vercel --prod`
+
+## Retour en arrière
+
+En cas d'échec, selectionner le déploiement précédent dans l'historique Vercel et le promouvoir en production
